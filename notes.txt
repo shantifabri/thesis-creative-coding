@@ -1,0 +1,123 @@
+descargar sketch con link /download/... - no funciona?
+corazones y comments sacar de la pag
+
+https://superuser.com/questions/14403/how-can-i-download-an-entire-website
+https://grabz.it/scraper/documentation/tutorials/download-website/
+
+
+algunos(mayoria) estan hechos en p5js -> javascript, partir averiguando aca
+
+-----------------------------------------------------------
+
+code metrics / source code statistics / source-code analysis
+
+
+https://owasp.org/www-community/Source_Code_Analysis_Tools#:~:text=Source%20code%20analysis%20tools%2C%20also,detect%20issues%20during%20software%20development.
+
+-- for C but want similar https://www.frama-c.com/
+
+https://www.telerik.com/blogs/going-beyond-eslint-overview-static-analysis-javascript
+
+-----------------------------------------------------------
+
+PLATO
+
+https://github.com/es-analysis/plato
+plato -r -d report_plato demo
+
+-----------------------------------------------------------
+
+CR
+
+https://github.com/escomplex/complexity-report   ---> https://github.com/escomplex/escomplex/blob/master/README.md#metrics
+cr --output "cr_report" demo 
+
+-----------------------------------------------------------
+
+CLOC
+
+https://cloc.sourceforge.net/ 
+https://github.com/AlDanial/cloc
+https://sourceforge.net/p/cloc/discussion/600963/thread/dc6410ad/
+
+on command line 
+>cloc sketches
+>cloc sketches --by-file
+>cloc sketches -out='out.txt'
+
+
+no me han funcionado
+cloc demo
+--extract-with="\"C:\Program Files\WinZip\wzunzip\" -e -o >FILE< ."
+--extract-with="\"C:\Program Files\WinZip\WinZip32.exe\" -e -o >FILE< ."
+
+-----------------------------------------------------------
+
+https://github.com/marcinguy/betterscan-ce
+https://codeql.github.com/docs/codeql-language-guides/basic-query-for-javascript-code/
+
+-----------------------------------------------------------
+
+VISUAL STUDIO
+
+https://www.derpaul.net/SourceMonitor/
+
+https://learn.microsoft.com/en-us/visualstudio/code-quality/how-to-configure-code-analysis-for-a-managed-code-project?view=vs-2022
+https://learn.microsoft.com/en-us/visualstudio/code-quality/code-metrics-values?view=vs-2022
+https://learn.microsoft.com/en-us/visualstudio/code-quality/how-to-generate-code-metrics-data?view=vs-2022
+
+-----------------------------------------------------------
+
+https://marketplace.visualstudio.com/items?itemName=kisstkondoros.vscode-codemetrics
+
+
+----------------------------------
+
+After raw data extract story; relations w tags, keywords, likes, ... analysis
+
+15/02
+scrapping completed
+raw data extracted
+beggining analysis
+
+-----------
+
+complication of draw 
+lines on draw func
+variety of funcs
+ammount of files
+what files, external, types, music, images?
+
+whats the norm, how many deviate from it
+
+
+23/02
+ideas of anylisis, not completed
+I looked at ..., I wanna look at..., I can look at...
+
+title - "understanding creative coding" / "scraping and understanding xx in the creative coding"
+abstract - explain what c. coding is, there is ... , scraping analysis was done to understand ..., factors analysed ..., the results are presented in this thesis
+draft intro and index
+
+Thesis doc:
+
+chapters
+
+intro
+
+Context
+- talk about site
+- how many 
+...
+
+
+scraping
+how it was done
+why
+results
+
+
+anylisis
+
+
+discussion

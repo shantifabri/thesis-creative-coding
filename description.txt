@@ -1,0 +1,17 @@
+Code has become an important new material for creative expression. However, developing software for visual arts poses several challenges. To achieve interactive and visually appealing pieces, artists must get proficient with coding constructs and understand their syntax and semantics. Since no previous research has been done mining and analyzing the characteristics of the code-based pieces, this thesis aims to perform a large-scale empirical study based on analyzing creative coding open-source projects. With the outcomes of our research, we aim to inform the design of educational approaches targeted at visual artists and the implementation of domain-specific tools to overcome the several challenging issues that these artists face.
+Specifically, the mining will be performed over Open Processing (openprocessing.org), where artists, creative coding students, and experts share their work. Since this platform does not provide an API, such mining has to be done by scrapping the website and downloading the available sketches (for this scrapping, using the tool Selenium for Python is highly recommended).
+Once the download of a significant number of sketches (~90k - ~100k) is completed, a static code analysis must be conducted to determine the following characteristics (indicatively):
+
+Number of SLOCs
+Number of Scripts per project
+Number of single-line comments
+Number of blocked comments
+Number of classes
+Number of user-defined functions
+Number of built-in functions
+Number of variables
+Cyclomatic code complexity
+The average number of arguments per function
+Most common built-in functions
+
+Finally, a visualization tool must be implemented to inform the mining results.
