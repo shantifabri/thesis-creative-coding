@@ -7,11 +7,13 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.firefox.options import Options
 
+from selenium.common.exceptions import TimeoutException
+
 SKETCKES_PER_ROW = 12
 NUM_ROWS = 10
 VISIBLE_SKETCKES = SKETCKES_PER_ROW * NUM_ROWS
 
-AMOUNT = 40000
+AMOUNT = 15000
 
 ITERS = int(AMOUNT / VISIBLE_SKETCKES) + 1
 
@@ -35,7 +37,7 @@ def collect_links(iters, file_name):
     # hearted on month - "https://openprocessing.org/browse/#"
     # created all time - "https://openprocessing.org/browse/?time=anytime&type=all&q=#"
     # hearted all time - "https://openprocessing.org/browse/?time=anytime&type=hearts"
-    driver.get("https://openprocessing.org/browse/?time=anytime&type=hearts")
+    driver.get("https://openprocessing.org/browse/?time=anytime&type=all&q=#")
     assert "Browse Sketches - OpenProcessing" in driver.title
 
     array_links = set()
@@ -45,9 +47,13 @@ def collect_links(iters, file_name):
 
     # show more
     for i in range(iters):
-        element = wait.until(
-            EC.element_to_be_clickable((By.ID, 'showMoreButton')))
-        element.click()
+        try: 
+            element = wait.until(
+                EC.element_to_be_clickable((By.ID, 'showMoreButton')))
+            element.click()
+
+        except TimeoutException:
+            print("timeout on iter", i)
 
     links = driver.find_elements(By.CLASS_NAME, "sketchThumbContainer")
 
@@ -105,7 +111,7 @@ if __name__ == '__main__':
     start_time = time.time()
 
     options = Options()
-    # options.add_argument('--headless')
+    options.add_argument('--headless')
 
     driver = webdriver.Firefox(options=options)
     driver.maximize_window()
@@ -128,10 +134,10 @@ if __name__ == '__main__':
     time.sleep(1)
 
     ###
-    collect_links(0, "./links/hearted.csv")
+    # collect_links(ITERS, "./links/created_15k.csv")
 
     ###
-    # download_sketches('./links/tiny_hearted_c.csv', './links/links-data.csv')
+    download_sketches("./links/hearted_15k_f.csv", './links/data/data_hearted_15k_f.csv')
 
     driver.close()
 
