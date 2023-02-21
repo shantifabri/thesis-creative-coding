@@ -30,8 +30,12 @@ plato -r -d report_plato demo
 CR
 
 https://github.com/escomplex/complexity-report   ---> https://github.com/escomplex/escomplex/blob/master/README.md#metrics
-cr --output "cr_report" demo 
+cr --output "cr_report" demo
+cr --ignoreerrors --output "cr_report_created.json" sketches_created 
+cr --ignoreerrors --output "cr_report_hearted.json" sketches_hearted
 
+
+$env:NODE_OPTIONS="--max-old-space-size=8192"
 -----------------------------------------------------------
 
 CLOC
@@ -44,6 +48,11 @@ on command line
 >cloc sketches
 >cloc sketches --by-file
 >cloc sketches -out='out.txt'
+>cloc sketches -out='out.json'
+>cloc sketches -out='out.csv'
+
+>cloc sketches_created -out='cloc_created.csv'
+>cloc sketches_hearted -out='cloc_hearted.csv'
 
 
 no me han funcionado
@@ -121,3 +130,25 @@ anylisis
 
 
 discussion
+
+
+
+---- useful links ----
+https://www.arts.ac.uk/study-at-ual/short-courses/stories/how-to-start-creative-coding#:~:text=What%20is%20creative%20coding%3F,and%20the%20wider%20design%20industry.
+ -> https://www.dezeen.com/2017/09/11/muirmcneil-8000-unique-covers-eye-magazine-design-graphics/
+ -> https://design.samsung.com/global/contents/ud970/
+
+https://en.wikipedia.org/wiki/Creative_coding
+
+https://interestingengineering.com/culture/everything-you-need-to-know-about-the-artistic-world-of-creative-coding
+
+
+https://en.wikipedia.org/wiki/Web_scraping
+
+
+
+https://www.behance.net/search/projects/?search=creative+coding&sort=recommended&time=month
+https://thelumiereguy.github.io/CreativeCodingExamples/
+
+https://openprocessing.org/
+
