@@ -34,6 +34,11 @@ cr --output "cr_report" demo
 cr --ignoreerrors --output "cr_report_created.json" sketches_created 
 cr --ignoreerrors --output "cr_report_hearted.json" sketches_hearted
 
+cr --ignoreerrors --format json --output "cr_report_created.json" sketches_created
+cr --ignoreerrors --format json --output "cr_report_hearted.json" sketches_hearted
+
+
+adjacencyMatrix - https://coderwall.com/p/3qhhjw/use-npm-link-to-edit-an-node-js-npm-module-locally
 
 $env:NODE_OPTIONS="--max-old-space-size=8192"
 -----------------------------------------------------------
@@ -152,3 +157,15 @@ https://thelumiereguy.github.io/CreativeCodingExamples/
 
 https://openprocessing.org/
 
+
+
+
+
+revisar q no haya sketchs repetidos entre created y liked
+
+ver si hay manera q cloc no ignore archivos
+
+averiguar visualizaciones en jupyter
+
+ver q cosas ignora cloc    --skip-uniqueness   --csv
+hacer cloc by file (al menos los con likes o una muestra)
