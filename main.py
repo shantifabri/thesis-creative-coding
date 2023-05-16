@@ -34,7 +34,6 @@ def load_csv(file_name, headers=None):
 
 
 def collect_links(iters, file_name):
-    # hearted on month - "https://openprocessing.org/browse/#"
     # created all time - "https://openprocessing.org/browse/?time=anytime&type=all&q=#"
     # hearted all time - "https://openprocessing.org/browse/?time=anytime&type=hearts"
     driver.get("https://openprocessing.org/browse/?time=anytime&type=all&q=#")
@@ -47,7 +46,7 @@ def collect_links(iters, file_name):
 
     # show more
     for i in range(iters):
-        try: 
+        try:
             element = wait.until(
                 EC.element_to_be_clickable((By.ID, 'showMoreButton')))
             element.click()
@@ -63,9 +62,9 @@ def collect_links(iters, file_name):
             if l_actual not in array_links:
                 array_links.add(l_actual)
         except:
-            print(f'Error en collect_links {link}')
+            print(f'Error in collect_links {link}')
 
-    print(f"Numero de links: {len(array_links)}")
+    print(f"Number of links: {len(array_links)}")
     write_csv(array_links, file_name)
 
 
@@ -137,7 +136,7 @@ if __name__ == '__main__':
     # collect_links(ITERS, "./links/created_15k.csv")
 
     ###
-    download_sketches("./links/hearted_15k_f.csv", './links/data/data_hearted_15k_f.csv')
+    # download_sketches("./links/hearted_15k_f.csv", './links/data/data_hearted_15k_f.csv')
 
     driver.close()
 
