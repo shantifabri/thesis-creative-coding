@@ -63,36 +63,53 @@ def anylise_cloc(filecreated, filehearted, language):
 #              "./analysis/cloc_hearted_skip_unique.csv", 'Arduino Sketch')
 
 
-def load_cr(filename):
+def load_json(filename):
     with open(filename, encoding="utf8") as f:
         data = json.load(f)
     return data
 
 
-df_demo = load_cr("../cr_report_demo.json")  # 6  --- len(df["reports"])
-# df = load_cr("../cr_report_created_half1.json") # 6010
-# df = load_cr("../cr_report_created_half2.json") # 6112
-# df = load_cr("../cr_report_hearted_half1.json") # 3311
-# df = load_cr("../cr_report_hearted_half2.json") # 8341
+def json_serializer(value):
+    if isinstance(value, set):
+        return list(value)
+    return value
+
+
+def write_dict(dict, filename):
+    with open(filename, 'w') as file:
+        file.write(json.dumps(dict, default=json_serializer))
+
+
+df_demo = load_json("../cr_report_demo.json")  # 6  --- len(df["reports"])
+df_demo2 = load_json("../cr_report_demo_2.json")  # 7  --- len(df["reports"])
+# df = load_json("../cr_report_created_half1.json") # 6010
+# df = load_json("../cr_report_created_half2.json") # 6112
+# df = load_json("../cr_report_hearted_half1.json") # 3311
+# df = load_json("../cr_report_hearted_half2.json") # 8341
 
 
 def analyse_cr(data):
+    reports = data["reports"]
+
     stats = {
-        "sketches_setup_draw": 0,   # see if file has those 2 funcs, if yes add to count
-        "funcs_setup": 0,           # count total of "setup" funcs
-        "funcs_draw": 0,            # count total of "draw" funcs
-        "n_files": 0,               # count all files
-        # [[name func["name"], # params func["params"], slen func["halstead"]["length"]  ]]
-        "funcs": [],
-        "sketches": set(),          # unique sketches
-        "files_names": set(),       # unique file names
-        "func_names": set(),        # unique functions names
-        "files": [],                # [sketch, filename, #funcs, ]
+        "sketches_setup_draw": 0,   # see if file has those 2 funcs  --  done
+        "funcs_setup": 0,           # count total of "setup" funcs  --  done
+        "funcs_draw": 0,            # count total of "draw" funcs  --  done
+        "n_files": len(reports),    # count all files -- done
+        "funcs": [],                # [[sketchname,func["name"],func["params"],func["sloc"]["logical"]]]
+        "sketches": set(),          # unique sketches -- done
+        "files_names": set(),       # unique file names -- done
+        "func_names": set(),        # unique functions names  --  done
+        # {sketch: [[filename, sloc, [name of funcs]]]} -- done
+        "files": {},
+        "sloc_logical": {'max': 0,
+                         'min': 1000,
+                         'sum': 0,
+                         'file_avg': 0,
+                         'func_avg': data["loc"]}
     }
 
-    reports = data["reports"]
-    stats["n_files"] = len(reports)   # ammount of files
-
+    # each report represents a file
     for report in reports:
         txt = report["path"]
         x = txt.rfind("\\")
@@ -103,15 +120,30 @@ def analyse_cr(data):
         sketchname = txt[y+1:]
         stats["sketches"].add(sketchname)  # add sketch name
 
-        stats["files"].append([sketchname, filename, len(report["functions"])])
+        # file SLOC
+        sloc_log_file = report["aggregate"]["sloc"]["logical"]
+        stats["sloc_logical"]["sum"] += sloc_log_file
 
+        if sloc_log_file > stats["sloc_logical"]["max"]:
+            stats["sloc_logical"]["max"] = sloc_log_file
+
+        if sloc_log_file < stats["sloc_logical"]["min"]:
+            stats["sloc_logical"]["min"] = sloc_log_file
+
+        # file gral info
+        if sketchname in stats["files"]:
+            stats["files"][sketchname].append([filename, sloc_log_file, []])
+        else:
+            stats["files"][sketchname] = [[filename, sloc_log_file, []]]
+
+        # funcs info
         draw, setup = 0, 0
-
         for func in report["functions"]:
             func_name = func["name"]
+            stats["files"][sketchname][-1][-1].append(func_name)
             stats["func_names"].add(func_name)
             stats["funcs"].append(
-                [func_name, func["params"], func["halstead"]["length"]])
+                [sketchname, func_name, func["params"], func["sloc"]["logical"]])
 
             if func_name == "draw":
                 draw = 1
@@ -124,17 +156,29 @@ def analyse_cr(data):
         if draw and setup:
             stats["sketches_setup_draw"] += 1
 
+    stats["sloc_logical"]["file_avg"] = stats["sloc_logical"]["sum"]/stats["n_files"]
+
     return stats
 
-# get loc's (max, min, sum for avg) ---- look into stats already have avg, get how many close to it
-# name of funcs in a file
-# how many funcs per project, max, min, avg
-
 # see if paths repeat - counter of files per sketch - path up till last \\
-
 # get highest and lowest of indexes
 
 
-stats = analyse_cr(df_demo)
+stats = analyse_cr(df_demo2)
 
 print(stats)
+
+write_dict(stats, "myfile.json")
+
+print("ssss ------------------------")
+ss = load_json("./myfile.json")
+print(ss)
+
+def analyse_cr_stats(stats):
+    # get loc's (max, min, sum for avg) ---->  get how many close to it
+    # how many funcs per project, max, min, avg
+    pass
+
+
+# df = pd.DataFrame(stats)
+# print(df)
