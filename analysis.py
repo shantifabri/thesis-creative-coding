@@ -1,6 +1,8 @@
 import json
 import re
 import pandas as pd
+import numpy as np
+from collections import namedtuple
 
 n_sketches_created = 14542
 n_sketches_hearted = 14196
@@ -371,6 +373,8 @@ df_hearted2 = load_json("../cr_report_hearted_half2.json")  # 8341
 # metrics = get_cr_metrics(df_demo)
 # metrics2 = get_cr_metrics(df_demo2)
 
+# print(metrics)
+
 ## Stats
 # stats_created1 = get_cr_stats(df_created1)
 # stats_created2 = get_cr_stats(df_created2)
@@ -380,11 +384,11 @@ df_hearted2 = load_json("../cr_report_hearted_half2.json")  # 8341
 
 # stats_created_joined = join_cr_stats(stats_created1, stats_created2)
 # stats_hearted_joined = join_cr_stats(stats_hearted1, stats_hearted2)
-# write_dict(stats_created_joined, "stats_created_joined.json")
-# write_dict(stats_hearted_joined, "stats_hearted_joined.json")
+# write_dict(stats_created_joined, "./analysis/cr/stats_created_joined.json")
+# write_dict(stats_hearted_joined, "./analysis/cr/stats_hearted_joined.json")
 
 # stats_total_joined = join_cr_stats(stats_created_joined, stats_hearted_joined)
-# write_dict(stats_total_joined, "stats_total_joined.json")
+# write_dict(stats_total_joined, "./analysis/cr/stats_total_joined.json")
 
 
 ## Metrics
@@ -396,11 +400,11 @@ df_hearted2 = load_json("../cr_report_hearted_half2.json")  # 8341
 
 # metrics_created_joined = join_cr_metrics(metrics_created1, metrics_created2)
 # metrics_hearted_joined = join_cr_metrics(metrics_hearted1, metrics_hearted2)
-# write_dict(metrics_created_joined, "metrics_created_joined.json")
-# write_dict(metrics_hearted_joined, "metrics_hearted_joined.json")
+# write_dict(metrics_created_joined, "./analysis/cr/metrics_created_joined.json")
+# write_dict(metrics_hearted_joined, "./analysis/cr/metrics_hearted_joined.json")
 
 # metrics_total_joined = join_cr_metrics(metrics_created_joined, metrics_hearted_joined)
-# write_dict(metrics_total_joined, "metrics_total_joined.json")
+# write_dict(metrics_total_joined, "./analysis/cr/metrics_total_joined.json")
 
 
 def analyse_cr_stats(stats):
@@ -411,12 +415,29 @@ def analyse_cr_stats(stats):
     pass
 
 
-def analyse_cr_metrics(metrics):
-    # from avg ---->  get how many close to it
-    # get highest and lowest of indexes
-    #
-    pass
+# named tuple for max min mean
+MaxMinMean = namedtuple('MaxMinMean', ['max', 'min', 'mean'])
 
+
+def analyse_cr_metrics(metrics):
+    # get highest, lowest and avg of metrics
+    max_min_mean = {}
+
+    for key, value in metrics.items():
+        if type(value) == list:
+            # IGNORING Nones, only happens in cyclomaticDensity, when func has no lines, hence division by 0
+            max_val = max(filter(lambda x: x is not None, value))
+            min_val = min(filter(lambda x: x is not None, value))
+            mean = np.mean(list(filter(lambda x: x is not None, value)))
+
+            max_min_mean[key] = MaxMinMean(max_val, min_val, mean)
+
+    # from avg ---->  get how many close to it
+
+    return max_min_mean
+
+
+# analyse_cr_metrics(metrics)
 
 # df = pd.DataFrame(stats)
 # print(df)
