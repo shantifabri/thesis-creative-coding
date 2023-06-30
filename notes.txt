@@ -29,7 +29,10 @@ plato -r -d report_plato demo
 
 CR
 
-https://github.com/escomplex/complexity-report   ---> https://github.com/escomplex/escomplex/blob/master/README.md#metrics
+https://github.com/escomplex/complexity-report
+https://github.com/escomplex/escomplex/blob/master/README.md#metrics
+https://github.com/escomplex/escomplex/blob/master/METRICS.md
+
 cr --output "cr_report" demo
 cr --ignoreerrors --output "cr_report_created.json" sketches_created 
 cr --ignoreerrors --output "cr_report_hearted.json" sketches_hearted
@@ -169,3 +172,9 @@ averiguar visualizaciones en jupyter
 
 ver q cosas ignora cloc    --skip-uniqueness   --csv
 hacer cloc by file (al menos los con likes o una muestra)
+
+
+
+
+https://jupyterbook.org/en/stable/interactive/interactive.html
+https://www.beeboxdesigns.com/codetalk/how-to-quickly-visualize-data-using-python-and-jupyter-notebooks/
