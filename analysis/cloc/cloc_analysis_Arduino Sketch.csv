@@ -1,0 +1,4 @@
+Group,total files,Arduino Sketch files,% Arduino Sketch files,avg Arduino Sketch files per sketch,total loc Arduino Sketch,avg loc per file,total comments Arduino Sketch,avg comments per file
+created,28367,4572,16.12,0.3143996699216064,309369,67.67,19439,4.25
+hearted,28213,6295,22.31,0.4434347703578473,785111,124.72,70553,11.21
+total,56580,10867,19.21,0.37814044122764284,1094480,100.72,89992,8.28
