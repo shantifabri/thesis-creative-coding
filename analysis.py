@@ -123,18 +123,20 @@ def get_cr_stats(data):
         "files_setup_draw": 0,      # count files that have setup+draw funcs
         "funcs_setup": 0,           # count total of "setup" funcs
         "funcs_draw": 0,            # count total of "draw" funcs
-        "n_files": len(reports),    # count all files
-        "sketches_names": set(),          # unique sketches
+        "n_files": 0,               # count all files
+        "sketches_names": set(),    # unique sketches
         "files_names": set(),       # unique file names
         "func_names": set(),        # unique functions names
-        "sketches": {},                # {sketch: [[filename, sloc, [name of funcs]]]}
-        "funcs": [],                # [[func_name,func_params,func_sloc_logical]]
+        "sketches": {},             # {sketch: [[filename, sloc, [name of funcs]]]}
+        "funcs": [],                # [[func_name,func_params,func_sloc_logical,func_sloc_physical]]
     }
 
     # each report represents a file
     for report in reports:
         if report["path"].endswith('p5.js'):
             continue
+
+        stats["n_files"] += 1
 
         txt = report["path"]
 
@@ -163,7 +165,7 @@ def get_cr_stats(data):
             stats["sketches"][sketchname][-1][-1].append(func_name)
             stats["func_names"].add(func_name)
             stats["funcs"].append(
-                [func_name, func["params"], func["sloc"]["logical"]])
+                [func_name, func["params"], func["sloc"]["logical"], func["sloc"]["physical"]])
 
             if func_name == "draw":
                 draw = 1
@@ -389,24 +391,22 @@ def analyse_cr_stats(stats, filename):
 
     write_dict(counts, "./analysis/cr/jsons/"+filename+"_project_file_func_count.json")
 
-    # stats["funcs"] -> [[func_name,func_params,func_sloc_logical]]
+    # stats["funcs"] -> [[func_name,func_params,func_sloc_logical,func_sloc_physical]]
     funcs_draw_setup = {
         "params_draw": [func[1] for func in stats["funcs"] if func[0] == "draw"],
-        "loc_draw": [func[2] for func in stats["funcs"] if func[0] == "draw"],
+        "loc_logical_draw": [func[2] for func in stats["funcs"] if func[0] == "draw"],
+        "loc_physical_draw": [func[3] for func in stats["funcs"] if func[0] == "draw"],
         "params_setup": [func[1] for func in stats["funcs"] if func[0] == "setup"],
-        "loc_setup": [func[2] for func in stats["funcs"] if func[0] == "setup"]
+        "loc_logical_setup": [func[2] for func in stats["funcs"] if func[0] == "setup"],
+        "loc_physical_setup": [func[3] for func in stats["funcs"] if func[0] == "setup"]
     }
 
     write_dict(funcs_draw_setup, "./analysis/cr/jsons/"+filename+"_setup_draw_characterization.json")
 
     name_counts = Counter((func[0] for func in stats["funcs"]))
-    name_counts_filtered_over_1 = {k: v for k, v in name_counts.items() if v > 1}
-    name_counts_filtered_over_5 = {k: v for k, v in name_counts.items() if v > 5}
 
     func_name_counters = {
         "name_counts": name_counts,
-        "name_counts_filtered_over_1": name_counts_filtered_over_1,
-        "name_counts_filtered_over_5": name_counts_filtered_over_5
     }
 
     write_dict(func_name_counters, "./analysis/cr/jsons/"+filename+"_func_name_counters.json")
