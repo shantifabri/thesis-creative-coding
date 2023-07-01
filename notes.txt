@@ -162,6 +162,10 @@ https://openprocessing.org/
 
 
 
+https://www.javatpoint.com/software-engineering-halsteads-software-metrics
+
+https://www.ibm.com/docs/en/addi/5.1.0?topic=reports-complexity
+
 
 
 revisar q no haya sketchs repetidos entre created y liked
@@ -178,3 +182,8 @@ hacer cloc by file (al menos los con likes o una muestra)
 
 https://jupyterbook.org/en/stable/interactive/interactive.html
 https://www.beeboxdesigns.com/codetalk/how-to-quickly-visualize-data-using-python-and-jupyter-notebooks/
+
+
+############# IMPORTANT #############
+
+## I decided to skip the file p5 that some sketches had in full bc its not made by them!! but mention ittttt
