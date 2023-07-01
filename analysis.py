@@ -1,26 +1,44 @@
 import json
 import re
 import pandas as pd
-import numpy as np
-from collections import namedtuple
+from collections import Counter
 
 n_sketches_created = 14542
 n_sketches_hearted = 14196
 n_sketches_total = n_sketches_created + n_sketches_hearted
 
 
-### CLOC ###
+def write_csv(filename, dataframe):
+    dataframe.to_csv(filename)
+
+
+def load_json(filename):
+    with open(filename, encoding="utf8") as f:
+        data = json.load(f)
+    return data
+
+
+def json_serializer(value):
+    if isinstance(value, set):
+        return list(value)
+    return value
+
+
+def write_dict(dict, filename):
+    with open(filename, 'w') as file:
+        file.write(json.dumps(dict, default=json_serializer, indent=2))
+
+
+# ############ #
+# ### CLOC ### #
+# ############ #
 
 def load_cloc(filename):
     data = pd.read_csv(filename, index_col='language')
     return data
 
 
-def write_csv(filename, dataframe):
-    dataframe.to_csv(filename)
-
-
-def anylise_cloc(filecreated, filehearted, language):
+def analyse_cloc(filecreated, filehearted, language):
 
     df_created = load_cloc(filecreated)
     df_hearted = load_cloc(filehearted)
@@ -90,62 +108,34 @@ def anylise_cloc(filecreated, filehearted, language):
     df = pd.DataFrame(data, index=['created', 'hearted', 'total'])
     df.index.name = 'Group'
 
-    write_csv(f'./analysis/cloc_analysis_{language}.csv', df)
+    write_csv(f'./analysis/cloc/cloc_analysis_{language}.csv', df)
 
 
-# anylise_cloc("./analysis/cloc_created_skip_unique.csv",
-#              "./analysis/cloc_hearted_skip_unique.csv", 'JavaScript')
-# anylise_cloc("./analysis/cloc_created_skip_unique.csv",
-#              "./analysis/cloc_hearted_skip_unique.csv", 'Arduino Sketch')
-# anylise_cloc("./analysis/cloc_created_skip_unique.csv",
-#              "./analysis/cloc_hearted_skip_unique.csv", 'HTML')
-
-
-### CR - REPORT ###
-
-def load_json(filename):
-    with open(filename, encoding="utf8") as f:
-        data = json.load(f)
-    return data
-
-
-def json_serializer(value):
-    if isinstance(value, set):
-        return list(value)
-    return value
-
-
-def write_dict(dict, filename):
-    with open(filename, 'w') as file:
-        file.write(json.dumps(dict, default=json_serializer, indent=2))
-
+# ############### #
+# ## CR REPORT ## #
+# ############### #
 
 # sketches, files, funcs: names and counts - loc #
 def get_cr_stats(data):
     reports = data["reports"]
 
     stats = {
-        "files_setup_draw": 0,   # count files that have setup+draw funcs  --  done
-        "funcs_setup": 0,           # count total of "setup" funcs  --  done
-        "funcs_draw": 0,            # count total of "draw" funcs  --  done
-        "n_files": len(reports),    # count all files -- done
-        # [[sketchname,func["name"],func["params"],func["sloc"]["logical"]]] -- done
-        "funcs": [],
-        "sketches": set(),          # unique sketches -- done
-        "files_names": set(),       # unique file names -- done
-        "func_names": set(),        # unique functions names  --  done
-        # {sketch: [[filename, sloc, [name of funcs]]]} -- done
-        "files": {},
-        "params": data["params"],
-        "sloc_logical": {'max': 0,
-                         'min': 1000,
-                         'sum': 0,
-                         'file_avg': 0,
-                         'func_avg': data["loc"]}
+        "files_setup_draw": 0,      # count files that have setup+draw funcs
+        "funcs_setup": 0,           # count total of "setup" funcs
+        "funcs_draw": 0,            # count total of "draw" funcs
+        "n_files": len(reports),    # count all files
+        "sketches_names": set(),          # unique sketches
+        "files_names": set(),       # unique file names
+        "func_names": set(),        # unique functions names
+        "sketches": {},                # {sketch: [[filename, sloc, [name of funcs]]]}
+        "funcs": [],                # [[func_name,func_params,func_sloc_logical]]
     }
 
     # each report represents a file
     for report in reports:
+        if report["path"].endswith('p5.js'):
+            continue
+
         txt = report["path"]
 
         match = re.search(r'sketch\d+', txt)
@@ -154,33 +144,26 @@ def get_cr_stats(data):
         sketchname = txt[s:e]
         filename = txt[e+1:]
 
-        stats["sketches"].add(sketchname)  # add sketch name
+        stats["sketches_names"].add(sketchname)  # add sketch name
         stats["files_names"].add(filename)  # add file name
 
         # file SLOC
         sloc_log_file = report["aggregate"]["sloc"]["logical"]
-        stats["sloc_logical"]["sum"] += sloc_log_file
-
-        if sloc_log_file > stats["sloc_logical"]["max"]:
-            stats["sloc_logical"]["max"] = sloc_log_file
-
-        if sloc_log_file < stats["sloc_logical"]["min"]:
-            stats["sloc_logical"]["min"] = sloc_log_file
 
         # file gral info
-        if sketchname in stats["files"]:
-            stats["files"][sketchname].append([filename, sloc_log_file, []])
+        if sketchname in stats["sketches"]:
+            stats["sketches"][sketchname].append([filename, sloc_log_file, []])
         else:
-            stats["files"][sketchname] = [[filename, sloc_log_file, []]]
+            stats["sketches"][sketchname] = [[filename, sloc_log_file, []]]
 
         # funcs info
         draw, setup = 0, 0
         for func in report["functions"]:
             func_name = func["name"]
-            stats["files"][sketchname][-1][-1].append(func_name)
+            stats["sketches"][sketchname][-1][-1].append(func_name)
             stats["func_names"].add(func_name)
             stats["funcs"].append(
-                [sketchname, func_name, func["params"], func["sloc"]["logical"]])
+                [func_name, func["params"], func["sloc"]["logical"]])
 
             if func_name == "draw":
                 draw = 1
@@ -193,7 +176,40 @@ def get_cr_stats(data):
         if draw and setup:
             stats["files_setup_draw"] += 1
 
-    stats["sloc_logical"]["file_avg"] = stats["sloc_logical"]["sum"]/stats["n_files"]
+    return stats
+
+
+# loc physical - loc logical - params -- per mod and per func #
+def get_cr_loc_param(data):
+    reports = data["reports"]
+
+    stats = {
+        "n_modules": 0,
+        "n_funcs": 0,
+
+        "sloc_physical_mod_list": [],  # physical lines of code for the module
+        "sloc_logical_mod_list": [],  # logical lines of code for the module
+        "param_mod_list": [],  # parameter count for the module
+
+        "sloc_physical_func_list": [],  # physical lines of code for the func
+        "sloc_logical_func_list": [],  # logical lines of code for the func
+        "param_func_list": []  # parameter count for the function.
+    }
+
+    for report in reports:
+        if report["path"].endswith('p5.js'):
+            continue
+
+        stats["n_modules"] += 1
+        stats["sloc_physical_mod_list"].append(report["aggregate"]["sloc"]["physical"])
+        stats["sloc_logical_mod_list"].append(report["aggregate"]["sloc"]["logical"])
+        stats["param_mod_list"].append(report["aggregate"]["params"])
+
+        for func in report["functions"]:
+            stats["n_funcs"] += 1
+            stats["sloc_physical_func_list"].append(func["sloc"]["physical"])
+            stats["sloc_logical_func_list"].append(func["sloc"]["logical"])
+            stats["param_func_list"].append(func["params"])
 
     return stats
 
@@ -204,7 +220,7 @@ def get_cr_metrics(data):
 
     stats = {
         # whole thing
-        "n_modules": len(reports),
+        "n_modules": 0,
         "n_funcs": 0,
         "maintainability_mod_avg": data["maintainability"],  # avg per-module maintainability index
         "cyclomatic_func_avg": data["cyclomatic"],           # avg per-func cyclomatic complexity
@@ -240,6 +256,10 @@ def get_cr_metrics(data):
     }
 
     for report in reports:
+        if report["path"].endswith('p5.js'):
+            continue
+
+        stats["n_modules"] += 1
         stats["maintainability_mod_list"].append(report["maintainability"])
         stats["cyclomatic_mod_list"].append(report["aggregate"]["cyclomatic"])
         stats["cyclomaticDensity_mod_list"].append(report["aggregate"]["cyclomaticDensity"])
@@ -271,41 +291,33 @@ def get_cr_metrics(data):
 def join_cr_stats(s1, s2):
 
     joined_dict = {
-        # add count of both stat_dicts
-        "files_setup_draw": s1["files_setup_draw"] + s2["files_setup_draw"],
-        # add count of both stat_dicts
-        "funcs_setup": s1["funcs_setup"] + s2["funcs_setup"],
-        # add count of both stat_dicts
-        "funcs_draw": s1["funcs_draw"] + s2["funcs_draw"],
-        # add count of both stat_dicts
-        "n_files": s1["n_files"] + s2["n_files"],
-        # concat list of lists
-        "funcs": s1["funcs"] + s2["funcs"],
-        # union sets of unique sketches
-        "sketches": s1["sketches"].union(s2["sketches"]),
-        # union sets of unique file names
-        "files_names": s1["files_names"].union(s2["files_names"]),
-        # union sets of unique functions names
-        "func_names": s1["func_names"].union(s2["func_names"]),
-        # {sketch: [[filename, sloc, [name of funcs]]]} -- done
-        "files": {**s1["files"], **s2["files"]},
-        "sloc_logical": {'max': max(s1["sloc_logical"]["max"], s2["sloc_logical"]["max"]),  # max of both stat_dicts
-                         # min of both stat_dicts
-                         'min': min(s1["sloc_logical"]["min"], s2["sloc_logical"]["min"]),
-                         # sum of both stat_dicts
-                         'sum': s1["sloc_logical"]["sum"] + s2["sloc_logical"]["sum"],
-                         'file_avg': 0,
-                         'func_avg': 0}
+        "files_setup_draw": s1["files_setup_draw"] + s2["files_setup_draw"],  # add count of both stat_dicts
+        "funcs_setup": s1["funcs_setup"] + s2["funcs_setup"],  # add count of both stat_dicts
+        "funcs_draw": s1["funcs_draw"] + s2["funcs_draw"],  # add count of both stat_dicts
+        "n_files": s1["n_files"] + s2["n_files"],  # add count of both stat_dicts
+        "sketches_names": s1["sketches_names"].union(s2["sketches_names"]),  # union sets of unique sketches
+        "files_names": s1["files_names"].union(s2["files_names"]),  # union sets of unique file names
+        "func_names": s1["func_names"].union(s2["func_names"]),  # union sets of unique functions names
+        "sketches": {**s1["sketches"], **s2["sketches"]},  # {sketch: [[filename, sloc, [name of funcs]]]}
+        "funcs": s1["funcs"] + s2["funcs"],  # concat list of lists
     }
 
-    joined_dict["sloc_logical"]["file_avg"] = joined_dict["sloc_logical"]["sum"] / \
-        joined_dict["n_files"]
+    return joined_dict
 
-    # (avg1 * count1, avg2 *coun2) / (count1+count2)
-    sum1 = s1["sloc_logical"]["func_avg"] * len(s1["funcs"])
-    sum2 = s2["sloc_logical"]["func_avg"] * len(s2["funcs"])
-    total_funcs = len(s1["funcs"]) + len(s2["funcs"])
-    joined_dict["sloc_logical"]["func_avg"] = (sum1 + sum2) / total_funcs
+
+def join_cr_loc_param(l1, l2):
+
+    joined_dict = {
+        "n_modules": l1["n_modules"] + l2["n_modules"],
+        "n_funcs": l1["n_funcs"] + l2["n_funcs"],
+        "sloc_physical_mod_list": [*l1["sloc_physical_mod_list"], *l2["sloc_physical_mod_list"]],
+        "sloc_logical_mod_list": [*l1["sloc_logical_mod_list"], *l2["sloc_logical_mod_list"]],
+        "param_mod_list": [*l1["param_mod_list"], *l2["param_mod_list"]],
+
+        "sloc_physical_func_list": [*l1["sloc_physical_func_list"], *l2["sloc_physical_func_list"]],
+        "sloc_logical_func_list": [*l1["sloc_logical_func_list"], *l2["sloc_logical_func_list"]],
+        "param_func_list": [*l1["param_func_list"], *l2["param_func_list"]]
+    }
 
     return joined_dict
 
@@ -356,88 +368,121 @@ def join_cr_metrics(m1, m2):
     return joined_dict
 
 
-## Load cr_reports
-# df_demo = load_json("../cr_report_demo.json")  # 6  --- len(df["reports"])
-# df_demo2 = load_json("../cr_report_demo_2.json")  # 7  --- len(df["reports"])
-df_created1 = load_json("../cr_report_created_half1.json")  # 6010
-df_created2 = load_json("../cr_report_created_half2.json")  # 6112
-df_hearted1 = load_json("../cr_report_hearted_half1.json")  # 3311
-df_hearted2 = load_json("../cr_report_hearted_half2.json")  # 8341
+def analyse_cr_stats(stats, filename):
+
+    # stats["sketches"] -> {sketch: [[filename, sloc, [name of funcs]]]}
+    counts = {
+        "funcs_per_project": [],
+        "funcs_per_file": [],
+        "files_per_project": [],
+    }
+
+    for key, value in stats["sketches"].items():
+        project_func_count = 0
+        for file in value:
+            n_funcs_file = len(file[2])
+            project_func_count += n_funcs_file
+            counts["funcs_per_file"].append(n_funcs_file)
+
+        counts["funcs_per_project"].append(project_func_count)
+        counts["files_per_project"].append(len(value))
+
+    write_dict(counts, "./analysis/cr/jsons/"+filename+"_project_file_func_count.json")
+
+    # stats["funcs"] -> [[func_name,func_params,func_sloc_logical]]
+    funcs_draw_setup = {
+        "params_draw": [func[1] for func in stats["funcs"] if func[0] == "draw"],
+        "loc_draw": [func[2] for func in stats["funcs"] if func[0] == "draw"],
+        "params_setup": [func[1] for func in stats["funcs"] if func[0] == "setup"],
+        "loc_setup": [func[2] for func in stats["funcs"] if func[0] == "setup"]
+    }
+
+    write_dict(funcs_draw_setup, "./analysis/cr/jsons/"+filename+"_setup_draw_characterization.json")
+
+    name_counts = Counter((func[0] for func in stats["funcs"]))
+    name_counts_filtered_over_1 = {k: v for k, v in name_counts.items() if v > 1}
+    name_counts_filtered_over_5 = {k: v for k, v in name_counts.items() if v > 5}
+
+    func_name_counters = {
+        "name_counts": name_counts,
+        "name_counts_filtered_over_1": name_counts_filtered_over_1,
+        "name_counts_filtered_over_5": name_counts_filtered_over_5
+    }
+
+    write_dict(func_name_counters, "./analysis/cr/jsons/"+filename+"_func_name_counters.json")
 
 
-# stats = get_cr_stats_stats(df_demo)
-# stats2 = get_cr_stats_stats(df_demo2)
-# stats_created1 = get_cr_stats_stats(df_created1)
-# stats_created2 = get_cr_stats_stats(df_created2)
+def analyse_cr_loc_param(loc_param, filename):
+    module_loc_param = {}
+    func_loc_param = {}
 
-# metrics = get_cr_metrics(df_demo)
-# metrics2 = get_cr_metrics(df_demo2)
+    for key, value in loc_param.items():
+        if type(value) == list:
+            if len(value) == loc_param["n_modules"]:
+                module_loc_param[key] = value
 
-# print(metrics)
+            elif len(value) == loc_param["n_funcs"]:
+                func_loc_param[key] = value
 
-## Stats
-# stats_created1 = get_cr_stats(df_created1)
-# stats_created2 = get_cr_stats(df_created2)
+    module_dataframe = pd.DataFrame.from_dict(module_loc_param)
+    func_dataframe = pd.DataFrame.from_dict(func_loc_param)
 
-# stats_hearted1 = get_cr_stats(df_hearted1)
-# stats_hearted2 = get_cr_stats(df_hearted2)
-
-# stats_created_joined = join_cr_stats(stats_created1, stats_created2)
-# stats_hearted_joined = join_cr_stats(stats_hearted1, stats_hearted2)
-# write_dict(stats_created_joined, "./analysis/cr/stats_created_joined.json")
-# write_dict(stats_hearted_joined, "./analysis/cr/stats_hearted_joined.json")
-
-# stats_total_joined = join_cr_stats(stats_created_joined, stats_hearted_joined)
-# write_dict(stats_total_joined, "./analysis/cr/stats_total_joined.json")
+    write_csv("./analysis/cr/csvs/"+filename+"_loc_param_module.csv", module_dataframe)
+    write_csv("./analysis/cr/csvs/"+filename+"_loc_param_func.csv", func_dataframe)
 
 
-## Metrics
-# metrics_created1 = get_cr_metrics(df_created1)
-# metrics_created2 = get_cr_metrics(df_created2)
-
-# metrics_hearted1 = get_cr_metrics(df_hearted1)
-# metrics_hearted2 = get_cr_metrics(df_hearted2)
-
-# metrics_created_joined = join_cr_metrics(metrics_created1, metrics_created2)
-# metrics_hearted_joined = join_cr_metrics(metrics_hearted1, metrics_hearted2)
-# write_dict(metrics_created_joined, "./analysis/cr/metrics_created_joined.json")
-# write_dict(metrics_hearted_joined, "./analysis/cr/metrics_hearted_joined.json")
-
-# metrics_total_joined = join_cr_metrics(metrics_created_joined, metrics_hearted_joined)
-# write_dict(metrics_total_joined, "./analysis/cr/metrics_total_joined.json")
-
-
-def analyse_cr_stats(stats):
-    # get loc's (max, min, sum for avg) ---->  get how many close to it
-    # how many funcs per project, max, min, avg
-    # get highest and lowest of indexes
-    #
-    pass
-
-
-# named tuple for max min mean
-MaxMinMean = namedtuple('MaxMinMean', ['max', 'min', 'mean'])
-
-
-def analyse_cr_metrics(metrics):
-    # get highest, lowest and avg of metrics
-    max_min_mean = {}
+def analyse_cr_metrics(metrics, filename):
+    module_metrics = {}
+    func_metrics = {}
 
     for key, value in metrics.items():
         if type(value) == list:
-            # IGNORING Nones, only happens in cyclomaticDensity, when func has no lines, hence division by 0
-            max_val = max(filter(lambda x: x is not None, value))
-            min_val = min(filter(lambda x: x is not None, value))
-            mean = np.mean(list(filter(lambda x: x is not None, value)))
+            if len(value) == metrics["n_modules"]:
+                module_metrics[key] = value
 
-            max_min_mean[key] = MaxMinMean(max_val, min_val, mean)
+            elif len(value) == metrics["n_funcs"]:
+                func_metrics[key] = value
 
-    # from avg ---->  get how many close to it
+    module_dataframe = pd.DataFrame.from_dict(module_metrics)
+    func_dataframe = pd.DataFrame.from_dict(func_metrics)
 
-    return max_min_mean
+    write_csv("./analysis/cr/csvs/"+filename+"_metrics_module.csv", module_dataframe)
+    write_csv("./analysis/cr/csvs/"+filename+"_metrics_func.csv", func_dataframe)
 
 
-# analyse_cr_metrics(metrics)
+# # Load cr_reports
+# df_demo = load_json("../cr_report_demo.json")  # 6  --- len(df["reports"])
+# df_demo2 = load_json("../cr_report_demo_2.json")  # 7
 
-# df = pd.DataFrame(stats)
-# print(df)
+
+# stats
+# stats_demo = get_cr_stats(df_demo)
+# stats_demo2 = get_cr_stats(df_demo2)
+
+# write_dict(stats_demo, "stats_demo.json")
+# write_dict(stats_demo2, "stats_demo2.json")
+
+# join_stats_demo = (join_cr_stats(stats_demo, stats_demo2))
+
+# write_dict(join_stats_demo, "stats_joined_demo.json")
+
+# analyse_cr_stats(stats_demo, "demo")
+
+
+# # metrics
+# metrics_demo = get_cr_metrics(df_demo)
+# metrics_demo2 = get_cr_metrics(df_demo2)
+# df_hearted2 = load_json("../cr_report_created_half2.json")  # 8341
+# df_hearted = load_json("../cr_report_created_half1.json")  # 8341
+
+# metrics_hearted2 = get_cr_metrics(df_hearted2)
+# metrics_hearted2 = get_cr_metrics(df_hearted)
+
+# analyse_cr_metrics(metrics_demo, "demo")
+
+
+# # loc_param
+# loc_param_demo = get_cr_loc_param(df_demo)
+# loc_param_demo = get_cr_loc_param(df_demo2)
+
+# analyse_cr_loc_param(loc_param_demo, "demo")
