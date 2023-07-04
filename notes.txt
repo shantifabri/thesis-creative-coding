@@ -183,6 +183,13 @@ hacer cloc by file (al menos los con likes o una muestra)
 https://jupyterbook.org/en/stable/interactive/interactive.html
 https://www.beeboxdesigns.com/codetalk/how-to-quickly-visualize-data-using-python-and-jupyter-notebooks/
 
+https://p5js.org/
+https://processing.org/
+
+
+https://pvs-studio.com/en/blog/terms/0086/
+
+
 
 ############# IMPORTANT #############
 
