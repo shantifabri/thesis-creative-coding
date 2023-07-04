@@ -133,7 +133,7 @@ def get_cr_stats(data):
 
     # each report represents a file
     for report in reports:
-        if report["path"].endswith('p5.js'):
+        if 'p5' in report["path"]:
             continue
 
         stats["n_files"] += 1
@@ -199,7 +199,7 @@ def get_cr_loc_param(data):
     }
 
     for report in reports:
-        if report["path"].endswith('p5.js'):
+        if 'p5' in report["path"]:
             continue
 
         stats["n_modules"] += 1
@@ -241,6 +241,7 @@ def get_cr_metrics(data):
 
         # halstead
         # aggregate -- for the module
+        "length_mod_list": [],  # Halstead length size
         "vocabulary_mod_list": [],  # Halstead vocabulary size
         "difficulty_mod_list": [],  # Halstead difficulty
         "volume_mod_list": [],  # Halstead volume
@@ -249,6 +250,7 @@ def get_cr_metrics(data):
         "time_mod_list": [],  # Halstead time
 
         # func -- for the func
+        "length_func_list": [],  # Halstead length size
         "vocabulary_func_list": [],  # Halstead vocabulary size
         "difficulty_func_list": [],  # Halstead difficulty
         "volume_func_list": [],  # Halstead volume
@@ -258,7 +260,7 @@ def get_cr_metrics(data):
     }
 
     for report in reports:
-        if report["path"].endswith('p5.js'):
+        if 'p5' in report["path"]:
             continue
 
         stats["n_modules"] += 1
@@ -268,6 +270,7 @@ def get_cr_metrics(data):
         stats["effort_mod_func_avg_list"].append(report["effort"])
         stats["cyclomatic_mod_func_avg_list"].append(report["cyclomatic"])
 
+        stats["length_mod_list"].append(report["aggregate"]["halstead"]["length"])
         stats["vocabulary_mod_list"].append(report["aggregate"]["halstead"]["vocabulary"])
         stats["difficulty_mod_list"].append(report["aggregate"]["halstead"]["difficulty"])
         stats["volume_mod_list"].append(report["aggregate"]["halstead"]["volume"])
@@ -280,6 +283,7 @@ def get_cr_metrics(data):
             stats["cyclomatic_func_list"].append(func["cyclomatic"])
             stats["cyclomaticDensity_func_list"].append(func["cyclomaticDensity"])
 
+            stats["length_func_list"].append(func["halstead"]["length"])
             stats["vocabulary_func_list"].append(func["halstead"]["vocabulary"])
             stats["difficulty_func_list"].append(func["halstead"]["difficulty"])
             stats["volume_func_list"].append(func["halstead"]["volume"])
@@ -346,6 +350,7 @@ def join_cr_metrics(m1, m2):
 
         # halstead
         # aggregate -- for the module
+        "length_mod_list": [*m1["length_mod_list"], *m2["length_mod_list"]],  # Halstead length size
         "vocabulary_mod_list": [*m1["vocabulary_mod_list"], *m2["vocabulary_mod_list"]],  # Halstead vocabulary size
         "difficulty_mod_list": [*m1["difficulty_mod_list"], *m2["difficulty_mod_list"]],  # Halstead difficulty
         "volume_mod_list": [*m1["volume_mod_list"], *m2["volume_mod_list"]],  # Halstead volume
@@ -354,6 +359,7 @@ def join_cr_metrics(m1, m2):
         "time_mod_list": [*m1["time_mod_list"], *m2["time_mod_list"]],  # Halstead time
 
         # func -- for the func
+        "length_func_list": [*m1["length_func_list"], *m2["length_func_list"]],  # Halstead length size
         "vocabulary_func_list": [*m1["vocabulary_func_list"], *m2["vocabulary_func_list"]],  # Halstead vocabulary size
         "difficulty_func_list": [*m1["difficulty_func_list"], *m2["difficulty_func_list"]],  # Halstead difficulty
         "volume_func_list": [*m1["volume_func_list"], *m2["volume_func_list"]],  # Halstead volume
