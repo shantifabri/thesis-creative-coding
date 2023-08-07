@@ -1,0 +1,145 @@
+{
+  "files_setup_draw": 6,
+  "funcs_setup": 6,
+  "funcs_draw": 6,
+  "n_files": 6,
+  "sketches_names": [
+    "sketch1809018",
+    "sketch1809020",
+    "sketch1809021",
+    "sketch1809022",
+    "sketch1809019",
+    "sketch1809023"
+  ],
+  "files_names": [
+    "mySketch.js"
+  ],
+  "func_names": [
+    "draw",
+    "setup"
+  ],
+  "sketches": {
+    "sketch1809018": [
+      [
+        "mySketch.js",
+        14,
+        [
+          "setup",
+          "draw"
+        ]
+      ]
+    ],
+    "sketch1809019": [
+      [
+        "mySketch.js",
+        9,
+        [
+          "setup",
+          "draw"
+        ]
+      ]
+    ],
+    "sketch1809020": [
+      [
+        "mySketch.js",
+        11,
+        [
+          "setup",
+          "draw"
+        ]
+      ]
+    ],
+    "sketch1809021": [
+      [
+        "mySketch.js",
+        12,
+        [
+          "setup",
+          "draw"
+        ]
+      ]
+    ],
+    "sketch1809022": [
+      [
+        "mySketch.js",
+        9,
+        [
+          "setup",
+          "draw"
+        ]
+      ]
+    ],
+    "sketch1809023": [
+      [
+        "mySketch.js",
+        5,
+        [
+          "setup",
+          "draw"
+        ]
+      ]
+    ]
+  },
+  "funcs": [
+    [
+      "setup",
+      0,
+      2
+    ],
+    [
+      "draw",
+      0,
+      10
+    ],
+    [
+      "setup",
+      0,
+      3
+    ],
+    [
+      "draw",
+      0,
+      4
+    ],
+    [
+      "setup",
+      0,
+      2
+    ],
+    [
+      "draw",
+      0,
+      7
+    ],
+    [
+      "setup",
+      0,
+      3
+    ],
+    [
+      "draw",
+      0,
+      7
+    ],
+    [
+      "setup",
+      0,
+      2
+    ],
+    [
+      "draw",
+      0,
+      5
+    ],
+    [
+      "setup",
+      0,
+      3
+    ],
+    [
+      "draw",
+      0,
+      0
+    ]
+  ]
+}

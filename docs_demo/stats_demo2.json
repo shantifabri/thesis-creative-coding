@@ -1,0 +1,172 @@
+{
+  "files_setup_draw": 6,
+  "funcs_setup": 6,
+  "funcs_draw": 7,
+  "n_files": 7,
+  "sketches_names": [
+    "sketch1809038",
+    "sketch1809039",
+    "sketch1809040",
+    "sketch1809042",
+    "sketch1809041",
+    "sketch1809043"
+  ],
+  "files_names": [
+    "mySketch copy.js",
+    "mySketch.js"
+  ],
+  "func_names": [
+    "lalala",
+    "draw",
+    "setup2XD",
+    "setup"
+  ],
+  "sketches": {
+    "sketch1809038": [
+      [
+        "mySketch.js",
+        18,
+        [
+          "setup",
+          "draw"
+        ]
+      ]
+    ],
+    "sketch1809039": [
+      [
+        "mySketch.js",
+        9,
+        [
+          "setup",
+          "draw"
+        ]
+      ]
+    ],
+    "sketch1809040": [
+      [
+        "mySketch.js",
+        11,
+        [
+          "setup",
+          "draw"
+        ]
+      ]
+    ],
+    "sketch1809041": [
+      [
+        "mySketch.js",
+        12,
+        [
+          "setup",
+          "draw"
+        ]
+      ]
+    ],
+    "sketch1809042": [
+      [
+        "mySketch.js",
+        9,
+        [
+          "setup",
+          "draw"
+        ]
+      ]
+    ],
+    "sketch1809043": [
+      [
+        "mySketch copy.js",
+        6,
+        [
+          "setup2XD",
+          "draw",
+          "lalala"
+        ]
+      ],
+      [
+        "mySketch.js",
+        5,
+        [
+          "setup",
+          "draw"
+        ]
+      ]
+    ]
+  },
+  "funcs": [
+    [
+      "setup",
+      0,
+      2
+    ],
+    [
+      "draw",
+      0,
+      10
+    ],
+    [
+      "setup",
+      0,
+      3
+    ],
+    [
+      "draw",
+      0,
+      4
+    ],
+    [
+      "setup",
+      0,
+      2
+    ],
+    [
+      "draw",
+      0,
+      7
+    ],
+    [
+      "setup",
+      0,
+      3
+    ],
+    [
+      "draw",
+      0,
+      7
+    ],
+    [
+      "setup",
+      0,
+      2
+    ],
+    [
+      "draw",
+      0,
+      5
+    ],
+    [
+      "setup2XD",
+      0,
+      3
+    ],
+    [
+      "draw",
+      0,
+      0
+    ],
+    [
+      "lalala",
+      0,
+      0
+    ],
+    [
+      "setup",
+      0,
+      3
+    ],
+    [
+      "draw",
+      0,
+      0
+    ]
+  ]
+}

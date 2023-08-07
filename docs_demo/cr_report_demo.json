@@ -1,0 +1,897 @@
+{
+    "reports": [
+        {
+            "aggregate": {
+                "sloc": {
+                    "logical": 14,
+                    "physical": 18
+                },
+                "cyclomatic": 1,
+                "halstead": {
+                    "operators": {
+                        "distinct": 2,
+                        "total": 14,
+                        "identifiers": [
+                            "function",
+                            "()"
+                        ]
+                    },
+                    "operands": {
+                        "distinct": 22,
+                        "total": 37,
+                        "identifiers": [
+                            "setup",
+                            500,
+                            "createCanvas",
+                            "CENTER",
+                            "rectMode",
+                            "draw",
+                            255,
+                            0,
+                            "background",
+                            250,
+                            300,
+                            10,
+                            "square",
+                            127,
+                            26,
+                            "fill",
+                            "stroke",
+                            3,
+                            "strokeWeight",
+                            100,
+                            "circle",
+                            "noStroke"
+                        ]
+                    },
+                    "length": 51,
+                    "vocabulary": 24,
+                    "difficulty": 1.6818181818181819,
+                    "volume": 233.833087536779,
+                    "effort": 393.2647381300374,
+                    "bugs": 0.07794436251225967,
+                    "time": 21.8480410072243
+                },
+                "params": 0,
+                "line": 1,
+                "cyclomaticDensity": 7.142857142857142
+            },
+            "functions": [
+                {
+                    "name": "setup",
+                    "sloc": {
+                        "logical": 2,
+                        "physical": 4
+                    },
+                    "cyclomatic": 1,
+                    "halstead": {
+                        "operators": {
+                            "distinct": 1,
+                            "total": 2,
+                            "identifiers": [
+                                "()"
+                            ]
+                        },
+                        "operands": {
+                            "distinct": 4,
+                            "total": 5,
+                            "identifiers": [
+                                500,
+                                "createCanvas",
+                                "CENTER",
+                                "rectMode"
+                            ]
+                        },
+                        "length": 7,
+                        "vocabulary": 5,
+                        "difficulty": 0.625,
+                        "volume": 16.253496664211536,
+                        "effort": 10.15843541513221,
+                        "bugs": 0.005417832221403845,
+                        "time": 0.5643575230629005
+                    },
+                    "params": 0,
+                    "line": 1,
+                    "cyclomaticDensity": 50
+                },
+                {
+                    "name": "draw",
+                    "sloc": {
+                        "logical": 10,
+                        "physical": 13
+                    },
+                    "cyclomatic": 1,
+                    "halstead": {
+                        "operators": {
+                            "distinct": 1,
+                            "total": 10,
+                            "identifiers": [
+                                "()"
+                            ]
+                        },
+                        "operands": {
+                            "distinct": 16,
+                            "total": 30,
+                            "identifiers": [
+                                255,
+                                0,
+                                "background",
+                                250,
+                                300,
+                                10,
+                                "square",
+                                127,
+                                26,
+                                "fill",
+                                "stroke",
+                                3,
+                                "strokeWeight",
+                                100,
+                                "circle",
+                                "noStroke"
+                            ]
+                        },
+                        "length": 40,
+                        "vocabulary": 17,
+                        "difficulty": 0.9375,
+                        "volume": 163.4985136500136,
+                        "effort": 153.27985654688774,
+                        "bugs": 0.05449950455000453,
+                        "time": 8.515547585938208
+                    },
+                    "params": 0,
+                    "line": 6,
+                    "cyclomaticDensity": 10
+                }
+            ],
+            "dependencies": [],
+            "maintainability": 126.91425054634809,
+            "loc": 6,
+            "cyclomatic": 1,
+            "effort": 81.71914598100997,
+            "params": 0,
+            "path": "C:\\Users\\shant\\Documents\\PoliTo\\Thesis\\demo\\sketch1809018\\mySketch.js"
+        },
+        {
+            "aggregate": {
+                "sloc": {
+                    "logical": 9,
+                    "physical": 20
+                },
+                "cyclomatic": 1,
+                "halstead": {
+                    "operators": {
+                        "distinct": 2,
+                        "total": 9,
+                        "identifiers": [
+                            "function",
+                            "()"
+                        ]
+                    },
+                    "operands": {
+                        "distinct": 18,
+                        "total": 26,
+                        "identifiers": [
+                            "setup",
+                            500,
+                            "createCanvas",
+                            30,
+                            "background",
+                            "CENTER",
+                            "rectMode",
+                            "draw",
+                            230,
+                            0,
+                            18,
+                            "fill",
+                            250,
+                            "rect",
+                            195,
+                            227,
+                            80,
+                            "circle"
+                        ]
+                    },
+                    "length": 35,
+                    "vocabulary": 20,
+                    "difficulty": 1.4444444444444444,
+                    "volume": 151.26748332105768,
+                    "effort": 218.49747590819442,
+                    "bugs": 0.05042249444035256,
+                    "time": 12.138748661566357
+                },
+                "params": 0,
+                "line": 3,
+                "cyclomaticDensity": 11.11111111111111
+            },
+            "functions": [
+                {
+                    "name": "setup",
+                    "sloc": {
+                        "logical": 3,
+                        "physical": 6
+                    },
+                    "cyclomatic": 1,
+                    "halstead": {
+                        "operators": {
+                            "distinct": 1,
+                            "total": 3,
+                            "identifiers": [
+                                "()"
+                            ]
+                        },
+                        "operands": {
+                            "distinct": 6,
+                            "total": 7,
+                            "identifiers": [
+                                500,
+                                "createCanvas",
+                                30,
+                                "background",
+                                "CENTER",
+                                "rectMode"
+                            ]
+                        },
+                        "length": 10,
+                        "vocabulary": 7,
+                        "difficulty": 0.5833333333333334,
+                        "volume": 28.07354922057604,
+                        "effort": 16.376237045336026,
+                        "bugs": 0.009357849740192013,
+                        "time": 0.9097909469631126
+                    },
+                    "params": 0,
+                    "line": 3,
+                    "cyclomaticDensity": 33.33333333333333
+                },
+                {
+                    "name": "draw",
+                    "sloc": {
+                        "logical": 4,
+                        "physical": 13
+                    },
+                    "cyclomatic": 1,
+                    "halstead": {
+                        "operators": {
+                            "distinct": 1,
+                            "total": 4,
+                            "identifiers": [
+                                "()"
+                            ]
+                        },
+                        "operands": {
+                            "distinct": 10,
+                            "total": 17,
+                            "identifiers": [
+                                230,
+                                0,
+                                18,
+                                "fill",
+                                250,
+                                "rect",
+                                195,
+                                227,
+                                80,
+                                "circle"
+                            ]
+                        },
+                        "length": 21,
+                        "vocabulary": 11,
+                        "difficulty": 0.85,
+                        "volume": 72.64806399138325,
+                        "effort": 61.75085439267576,
+                        "bugs": 0.024216021330461083,
+                        "time": 3.4306030218153203
+                    },
+                    "params": 0,
+                    "line": 10,
+                    "cyclomaticDensity": 25
+                }
+            ],
+            "dependencies": [],
+            "maintainability": 138.17029114477165,
+            "loc": 3.5,
+            "cyclomatic": 1,
+            "effort": 39.063545719005894,
+            "params": 0,
+            "path": "C:\\Users\\shant\\Documents\\PoliTo\\Thesis\\demo\\sketch1809019\\mySketch.js"
+        },
+        {
+            "aggregate": {
+                "sloc": {
+                    "logical": 11,
+                    "physical": 21
+                },
+                "cyclomatic": 1,
+                "halstead": {
+                    "operators": {
+                        "distinct": 2,
+                        "total": 11,
+                        "identifiers": [
+                            "function",
+                            "()"
+                        ]
+                    },
+                    "operands": {
+                        "distinct": 23,
+                        "total": 30,
+                        "identifiers": [
+                            "setup",
+                            500,
+                            "createCanvas",
+                            "CENTER",
+                            "rectMode",
+                            "draw",
+                            255,
+                            103,
+                            31,
+                            "background",
+                            "fill",
+                            5,
+                            "strokeWeight",
+                            250,
+                            200,
+                            10,
+                            "rect",
+                            "noStroke",
+                            218,
+                            24,
+                            132,
+                            100,
+                            "circle"
+                        ]
+                    },
+                    "length": 41,
+                    "vocabulary": 25,
+                    "difficulty": 1.3043478260869565,
+                    "volume": 190.3981037807637,
+                    "effort": 248.34535275751787,
+                    "bugs": 0.0634660345935879,
+                    "time": 13.796964042084326
+                },
+                "params": 0,
+                "line": 1,
+                "cyclomaticDensity": 9.090909090909092
+            },
+            "functions": [
+                {
+                    "name": "setup",
+                    "sloc": {
+                        "logical": 2,
+                        "physical": 4
+                    },
+                    "cyclomatic": 1,
+                    "halstead": {
+                        "operators": {
+                            "distinct": 1,
+                            "total": 2,
+                            "identifiers": [
+                                "()"
+                            ]
+                        },
+                        "operands": {
+                            "distinct": 4,
+                            "total": 5,
+                            "identifiers": [
+                                500,
+                                "createCanvas",
+                                "CENTER",
+                                "rectMode"
+                            ]
+                        },
+                        "length": 7,
+                        "vocabulary": 5,
+                        "difficulty": 0.625,
+                        "volume": 16.253496664211536,
+                        "effort": 10.15843541513221,
+                        "bugs": 0.005417832221403845,
+                        "time": 0.5643575230629005
+                    },
+                    "params": 0,
+                    "line": 1,
+                    "cyclomaticDensity": 50
+                },
+                {
+                    "name": "draw",
+                    "sloc": {
+                        "logical": 7,
+                        "physical": 16
+                    },
+                    "cyclomatic": 1,
+                    "halstead": {
+                        "operators": {
+                            "distinct": 1,
+                            "total": 7,
+                            "identifiers": [
+                                "()"
+                            ]
+                        },
+                        "operands": {
+                            "distinct": 17,
+                            "total": 23,
+                            "identifiers": [
+                                255,
+                                103,
+                                31,
+                                "background",
+                                "fill",
+                                5,
+                                "strokeWeight",
+                                250,
+                                200,
+                                10,
+                                "rect",
+                                "noStroke",
+                                218,
+                                24,
+                                132,
+                                100,
+                                "circle"
+                            ]
+                        },
+                        "length": 30,
+                        "vocabulary": 18,
+                        "difficulty": 0.6764705882352942,
+                        "volume": 125.09775004326937,
+                        "effort": 84.62494855868222,
+                        "bugs": 0.04169925001442312,
+                        "time": 4.701386031037901
+                    },
+                    "params": 0,
+                    "line": 6,
+                    "cyclomaticDensity": 14.285714285714285
+                }
+            ],
+            "dependencies": [],
+            "maintainability": 133.43805764152552,
+            "loc": 4.5,
+            "cyclomatic": 1,
+            "effort": 47.39169198690722,
+            "params": 0,
+            "path": "C:\\Users\\shant\\Documents\\PoliTo\\Thesis\\demo\\sketch1809020\\mySketch.js"
+        },
+        {
+            "aggregate": {
+                "sloc": {
+                    "logical": 12,
+                    "physical": 20
+                },
+                "cyclomatic": 1,
+                "halstead": {
+                    "operators": {
+                        "distinct": 2,
+                        "total": 12,
+                        "identifiers": [
+                            "function",
+                            "()"
+                        ]
+                    },
+                    "operands": {
+                        "distinct": 26,
+                        "total": 33,
+                        "identifiers": [
+                            "setup",
+                            500,
+                            "createCanvas",
+                            161,
+                            205,
+                            229,
+                            "background",
+                            "CENTER",
+                            "rectMode",
+                            "draw",
+                            230,
+                            70,
+                            100,
+                            "fill",
+                            255,
+                            "stroke",
+                            3,
+                            "strokeWeight",
+                            250,
+                            200,
+                            "rect",
+                            130,
+                            30,
+                            150,
+                            "noStroke",
+                            "circle"
+                        ]
+                    },
+                    "length": 45,
+                    "vocabulary": 28,
+                    "difficulty": 1.2692307692307692,
+                    "volume": 216.33097149259217,
+                    "effort": 274.57392535598234,
+                    "bugs": 0.07211032383086406,
+                    "time": 15.254106964221242
+                },
+                "params": 0,
+                "line": 1,
+                "cyclomaticDensity": 8.333333333333332
+            },
+            "functions": [
+                {
+                    "name": "setup",
+                    "sloc": {
+                        "logical": 3,
+                        "physical": 6
+                    },
+                    "cyclomatic": 1,
+                    "halstead": {
+                        "operators": {
+                            "distinct": 1,
+                            "total": 3,
+                            "identifiers": [
+                                "()"
+                            ]
+                        },
+                        "operands": {
+                            "distinct": 8,
+                            "total": 9,
+                            "identifiers": [
+                                500,
+                                "createCanvas",
+                                161,
+                                205,
+                                229,
+                                "background",
+                                "CENTER",
+                                "rectMode"
+                            ]
+                        },
+                        "length": 12,
+                        "vocabulary": 9,
+                        "difficulty": 0.5625,
+                        "volume": 38.03910001730775,
+                        "effort": 21.39699375973561,
+                        "bugs": 0.012679700005769252,
+                        "time": 1.1887218755408673
+                    },
+                    "params": 0,
+                    "line": 1,
+                    "cyclomaticDensity": 33.33333333333333
+                },
+                {
+                    "name": "draw",
+                    "sloc": {
+                        "logical": 7,
+                        "physical": 13
+                    },
+                    "cyclomatic": 1,
+                    "halstead": {
+                        "operators": {
+                            "distinct": 1,
+                            "total": 7,
+                            "identifiers": [
+                                "()"
+                            ]
+                        },
+                        "operands": {
+                            "distinct": 16,
+                            "total": 22,
+                            "identifiers": [
+                                230,
+                                70,
+                                100,
+                                "fill",
+                                255,
+                                "stroke",
+                                3,
+                                "strokeWeight",
+                                250,
+                                200,
+                                "rect",
+                                130,
+                                30,
+                                150,
+                                "noStroke",
+                                "circle"
+                            ]
+                        },
+                        "length": 29,
+                        "vocabulary": 17,
+                        "difficulty": 0.6875,
+                        "volume": 118.53642239625987,
+                        "effort": 81.49379039742865,
+                        "bugs": 0.03951214079875329,
+                        "time": 4.527432799857148
+                    },
+                    "params": 0,
+                    "line": 8,
+                    "cyclomaticDensity": 14.285714285714285
+                }
+            ],
+            "dependencies": [],
+            "maintainability": 131.4505243504365,
+            "loc": 5,
+            "cyclomatic": 1,
+            "effort": 51.44539207858213,
+            "params": 0,
+            "path": "C:\\Users\\shant\\Documents\\PoliTo\\Thesis\\demo\\sketch1809021\\mySketch.js"
+        },
+        {
+            "aggregate": {
+                "sloc": {
+                    "logical": 9,
+                    "physical": 15
+                },
+                "cyclomatic": 1,
+                "halstead": {
+                    "operators": {
+                        "distinct": 2,
+                        "total": 9,
+                        "identifiers": [
+                            "function",
+                            "()"
+                        ]
+                    },
+                    "operands": {
+                        "distinct": 20,
+                        "total": 28,
+                        "identifiers": [
+                            "setup",
+                            500,
+                            "createCanvas",
+                            "CENTER",
+                            "rectMode",
+                            "draw",
+                            182,
+                            116,
+                            2,
+                            "background",
+                            218,
+                            24,
+                            132,
+                            "fill",
+                            250,
+                            100,
+                            "rect",
+                            36,
+                            50,
+                            "circle"
+                        ]
+                    },
+                    "length": 37,
+                    "vocabulary": 22,
+                    "difficulty": 1.4,
+                    "volume": 164.99896988958,
+                    "effort": 230.99855784541197,
+                    "bugs": 0.05499965662986,
+                    "time": 12.833253213633999
+                },
+                "params": 0,
+                "line": 1,
+                "cyclomaticDensity": 11.11111111111111
+            },
+            "functions": [
+                {
+                    "name": "setup",
+                    "sloc": {
+                        "logical": 2,
+                        "physical": 5
+                    },
+                    "cyclomatic": 1,
+                    "halstead": {
+                        "operators": {
+                            "distinct": 1,
+                            "total": 2,
+                            "identifiers": [
+                                "()"
+                            ]
+                        },
+                        "operands": {
+                            "distinct": 4,
+                            "total": 5,
+                            "identifiers": [
+                                500,
+                                "createCanvas",
+                                "CENTER",
+                                "rectMode"
+                            ]
+                        },
+                        "length": 7,
+                        "vocabulary": 5,
+                        "difficulty": 0.625,
+                        "volume": 16.253496664211536,
+                        "effort": 10.15843541513221,
+                        "bugs": 0.005417832221403845,
+                        "time": 0.5643575230629005
+                    },
+                    "params": 0,
+                    "line": 1,
+                    "cyclomaticDensity": 50
+                },
+                {
+                    "name": "draw",
+                    "sloc": {
+                        "logical": 5,
+                        "physical": 9
+                    },
+                    "cyclomatic": 1,
+                    "halstead": {
+                        "operators": {
+                            "distinct": 1,
+                            "total": 5,
+                            "identifiers": [
+                                "()"
+                            ]
+                        },
+                        "operands": {
+                            "distinct": 14,
+                            "total": 21,
+                            "identifiers": [
+                                182,
+                                116,
+                                2,
+                                "background",
+                                218,
+                                24,
+                                132,
+                                "fill",
+                                250,
+                                100,
+                                "rect",
+                                36,
+                                50,
+                                "circle"
+                            ]
+                        },
+                        "length": 26,
+                        "vocabulary": 15,
+                        "difficulty": 0.75,
+                        "volume": 101.57915548582149,
+                        "effort": 76.18436661436611,
+                        "bugs": 0.033859718495273826,
+                        "time": 4.232464811909228
+                    },
+                    "params": 0,
+                    "line": 7,
+                    "cyclomaticDensity": 20
+                }
+            ],
+            "dependencies": [],
+            "maintainability": 137.828330252711,
+            "loc": 3.5,
+            "cyclomatic": 1,
+            "effort": 43.171401014749165,
+            "params": 0,
+            "path": "C:\\Users\\shant\\Documents\\PoliTo\\Thesis\\demo\\sketch1809022\\mySketch.js"
+        },
+        {
+            "aggregate": {
+                "sloc": {
+                    "logical": 5,
+                    "physical": 9
+                },
+                "cyclomatic": 1,
+                "halstead": {
+                    "operators": {
+                        "distinct": 2,
+                        "total": 5,
+                        "identifiers": [
+                            "function",
+                            "()"
+                        ]
+                    },
+                    "operands": {
+                        "distinct": 11,
+                        "total": 11,
+                        "identifiers": [
+                            "setup",
+                            "windowWidth",
+                            "windowHeight",
+                            "createCanvas",
+                            100,
+                            "background",
+                            "mouseX",
+                            "mouseY",
+                            20,
+                            "circle",
+                            "draw"
+                        ]
+                    },
+                    "length": 16,
+                    "vocabulary": 13,
+                    "difficulty": 1,
+                    "volume": 59.207035490257475,
+                    "effort": 59.207035490257475,
+                    "bugs": 0.019735678496752493,
+                    "time": 3.2892797494587485
+                },
+                "params": 0,
+                "line": 1,
+                "cyclomaticDensity": 20
+            },
+            "functions": [
+                {
+                    "name": "setup",
+                    "sloc": {
+                        "logical": 3,
+                        "physical": 5
+                    },
+                    "cyclomatic": 1,
+                    "halstead": {
+                        "operators": {
+                            "distinct": 1,
+                            "total": 3,
+                            "identifiers": [
+                                "()"
+                            ]
+                        },
+                        "operands": {
+                            "distinct": 9,
+                            "total": 9,
+                            "identifiers": [
+                                "windowWidth",
+                                "windowHeight",
+                                "createCanvas",
+                                100,
+                                "background",
+                                "mouseX",
+                                "mouseY",
+                                20,
+                                "circle"
+                            ]
+                        },
+                        "length": 12,
+                        "vocabulary": 10,
+                        "difficulty": 0.5,
+                        "volume": 39.863137138648355,
+                        "effort": 19.931568569324178,
+                        "bugs": 0.013287712379549451,
+                        "time": 1.1073093649624544
+                    },
+                    "params": 0,
+                    "line": 1,
+                    "cyclomaticDensity": 33.33333333333333
+                },
+                {
+                    "name": "draw",
+                    "sloc": {
+                        "logical": 0,
+                        "physical": 3
+                    },
+                    "cyclomatic": 1,
+                    "halstead": {
+                        "operators": {
+                            "distinct": 0,
+                            "total": 0,
+                            "identifiers": []
+                        },
+                        "operands": {
+                            "distinct": 0,
+                            "total": 0,
+                            "identifiers": []
+                        },
+                        "length": 0,
+                        "time": 0,
+                        "bugs": 0,
+                        "effort": 0,
+                        "volume": 0,
+                        "difficulty": 0,
+                        "vocabulary": 0
+                    },
+                    "params": 0,
+                    "line": 7,
+                    "cyclomaticDensity": null
+                }
+            ],
+            "dependencies": [],
+            "maintainability": 156.56834607026548,
+            "loc": 1.5,
+            "cyclomatic": 1,
+            "effort": 9.965784284662089,
+            "params": 0,
+            "path": "C:\\Users\\shant\\Documents\\PoliTo\\Thesis\\demo\\sketch1809023\\mySketch.js"
+        }
+    ],
+    "firstOrderDensity": 0,
+    "changeCost": 16.666666666666664,
+    "coreSize": 0,
+    "loc": 4,
+    "cyclomatic": 1,
+    "effort": 45.459493510819414,
+    "params": 0,
+    "maintainability": 137.39496666767639
+}

@@ -1,0 +1,14 @@
+{
+  "name_counts": {
+    "setup": 6,
+    "draw": 6
+  },
+  "name_counts_filtered_over_1": {
+    "setup": 6,
+    "draw": 6
+  },
+  "name_counts_filtered_over_5": {
+    "setup": 6,
+    "draw": 6
+  }
+}
